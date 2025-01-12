@@ -6,16 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Diagnosis extends Model
 {
-    public function patient()
+    public function visit()
     {
-        return $this->belongsTo(Patient::class);
+        return $this->belongsTo(Visit::class);
     }
 
-    public function doctor()
-    {
-        return $this->belongsTo(Doctor::class);
-    }
-
-    protected $fillable = ['patient_id', 'doctor_id', 'details'];
+   protected $fillable = [
+        'visit_id',
+        'diagnosis_name',
+        'description',
+        'notes',
+        
+    ];
 }
 

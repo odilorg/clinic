@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('doctor_id')->nullable()->constrained()->cascadeOnDelete();
             $table->date('visit_date');
             $table->string('reason');
-            $table->text('diagnosis')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
         });

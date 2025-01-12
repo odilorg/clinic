@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('diagnoses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('patient_id')->constrained()->onDelete('cascade');
-            $table->foreignId('doctor_id')->constrained()->onDelete('cascade');
-            $table->text('details');
+            $table->foreignId('visit_id')->constrained('visits')->cascadeOnDelete(); // Link to the visits table
+            $table->string('diagnosis_name'); // Name of the diagnosis
+            $table->text('description')->nullable(); // Description of the diagnosis
+            $table->text('notes')->nullable(); // Additional notes or instructions
             $table->timestamps();
         });
         

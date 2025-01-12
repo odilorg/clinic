@@ -29,12 +29,27 @@ class VisitsRelationManager extends RelationManager
                 ->required()
                 ->maxLength(255)
                 ->label('Причина'), // Reason
-            Forms\Components\Textarea::make('diagnosis')
-                ->columnSpanFull()
-                ->label('Диагноз'), // Diagnosis
             Forms\Components\Textarea::make('notes')
                 ->columnSpanFull()
-                ->label('Заметки'), // Notes
+                ->label('Заметки'),
+                Forms\Components\Repeater::make('diagnoses')
+                ->relationship() // Link to the hasMany relationship
+                ->label('Диагнозы') // Diagnoses
+                ->schema([
+                    Forms\Components\TextInput::make('diagnosis_name')
+                        ->required()
+                        ->label('Название диагноза') // Diagnosis Name
+                        ->maxLength(255),
+                    Forms\Components\Textarea::make('description')
+                        ->label('Описание') // Description
+                        ->maxLength(1000),
+                    Forms\Components\Textarea::make('notes')
+                        ->label('Заметки') // Notes
+                        ->maxLength(1000),
+                ])
+                ->collapsible() // Allow collapsing sections for a cleaner UI
+                //->createItemButtonLabel('Добавить диагноз') // Add button label
+                ->columnSpanFull(), // Notes
             ]);
     }
 
