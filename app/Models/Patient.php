@@ -40,6 +40,10 @@ class Patient extends Model
 {
     return $this->hasMany(MedicalHistory::class);
 }
+public function visits()
+{
+    return $this->hasMany(Visit::class);
+}
 
 
     protected $fillable = [

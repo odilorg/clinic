@@ -62,10 +62,7 @@ class MedicalHistoriesRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('name')
             ->columns([
-                Tables\Columns\TextColumn::make('patient.name')
-                ->label('Имя пациента') // Patient Name
-                ->sortable()
-                ->searchable(),
+               
             
             Tables\Columns\TextColumn::make('type')
                 ->label('Тип') // Type
