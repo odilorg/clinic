@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lab_tests', function (Blueprint $table) {
+        Schema::create('lab_test_types', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('patient_id')->constrained()->onDelete('cascade');
-            $table->string('test_name');
-            $table->text('results')->nullable();
-            $table->timestamp('test_date');
+            $table->string('name'); // Test type name (e.g., Blood Test)
+            $table->json('parameters'); // Parameters (e.g., ["Hemoglobin", "Glucose"])
             $table->timestamps();
         });
         
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lab_tests');
+        Schema::dropIfExists('lab_test_types');
     }
 };

@@ -12,10 +12,24 @@ class LabTest extends Model
     }
 
     protected $fillable = [
-        'patient_id',
-        'test_name',
-        'results',
-        'test_date',
+       'visit_id',  
+       'lab_test_type_id',
+         'notes',
     ];
+
+    public function labTestType()
+    {
+        return $this->belongsTo(LabTestType::class, 'lab_test_type_id', 'id'); // Explicit FK and referenced key
+    }
+    
+    public function visit()
+    {
+        return $this->belongsTo(Visit::class, 'visit_id', 'id'); // Explicit FK and referenced key
+    }
+
+    public function results()
+    {
+        return $this->hasMany(LabTestResult::class);
+    }
 }
 

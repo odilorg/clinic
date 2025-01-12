@@ -7,7 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Visit extends Model
 {
     
-    
+    protected $fillable = [
+        'patient_id',
+        'doctor_id',
+        'visit_date',
+        'reason',
+        'diagnosis',
+        'notes',
+    ];
     public function patient()
 {
     return $this->belongsTo(Patient::class);
@@ -20,16 +27,10 @@ public function doctor()
 
 public function labTests()
 {
-    return $this->hasMany(LabTest::class);
+    return $this->hasMany(LabTest::class, 'visit_id', 'id');
 }
-protected $fillable = [
-    'patient_id',
-    'doctor_id',
-    'visit_date',
-    'reason',
-    'diagnosis',
-    'notes',
-];
+
+
 public function prescriptions()
 {
     return $this->hasMany(Prescription::class);

@@ -22,72 +22,62 @@ class LabTestResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-        ->schema([
-            // Patient Selection
-            Forms\Components\Select::make('patient_id')
-                ->label('Пациент')
-                ->relationship('patient', 'name') // Links to the Patient model, showing first name
+            ->schema([
+                Forms\Components\Select::make('visit_id')
+                ->options(function () {
+                    return \App\Models\Visit::with('patient') // Eager load the patient relationship
+                        ->get()
+                        ->mapWithKeys(function ($visit) {
+                            return [
+                                $visit->id => "{$visit->patient->name} - {$visit->visit_date}", // Combine patient name and visit date
+                            ];
+                        });
+                })
                 ->required()
-                ->preload()
-                ->searchable(), // Allows searching for patients if the list is large
-    
-            // Test Name
-            Forms\Components\TextInput::make('test_name')
-                ->label('Название теста')
-                ->required()
-                ->maxLength(255), // Ensures data consistency with max length
-    
-            // Results
-            Forms\Components\Textarea::make('results')
-                ->label('Результаты')
-                ->columnSpanFull()
-                ->maxLength(2000) // Optional: Prevent excessively large results
-                ->nullable(), // Allows results to be added later if necessary
-    
-            // Test Date
-            Forms\Components\DateTimePicker::make('test_date')
-                ->label('Дата теста')
-                ->required()
-                ->default(now()), // Optional: Set default to the current date and time
-        ]);
-    
+                ->label('Дата визита'), // Visit Date
+            
+
+
+Forms\Components\Select::make('lab_test_type_id')
+    ->relationship('labTestType', 'name') // Link to LabTestType
+    ->required()
+    ->label('Тип лабораторного теста'), // Lab Test Type
+
+Forms\Components\Textarea::make('notes')
+    ->columnSpanFull()
+    ->label('Заметки'), // Notes
+
+            
+            ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
-        ->columns([
-            // Patient Name Column
-            Tables\Columns\TextColumn::make('patient.name')
-                ->label('Имя пациента')
-                ->searchable() // Allows searching by patient name
-                ->sortable(),  // Enables sorting by patient name
-    
-            // Test Name Column
-            Tables\Columns\TextColumn::make('test_name')
-                ->label('Название теста')
-                ->searchable(), // Allows searching by test name
-    
-            // Test Date Column
-            Tables\Columns\TextColumn::make('test_date')
-                ->label('Дата теста')
-                ->dateTime('F j, Y, g:i A') // Formats date and time in a readable format
-                ->sortable(),
-    
-            // Created At Column
-            Tables\Columns\TextColumn::make('created_at')
-                ->label('Created At')
-                ->dateTime('F j, Y, g:i A')
-                ->sortable()
-                ->toggleable(isToggledHiddenByDefault: true), // Hidden by default but toggleable
-    
-            // Updated At Column
-            Tables\Columns\TextColumn::make('updated_at')
-                ->label('Updated At')
-                ->dateTime('F j, Y, g:i A')
-                ->sortable()
-                ->toggleable(isToggledHiddenByDefault: true),
-        ])
+            ->columns([
+                Tables\Columns\TextColumn::make('visit.visit_date')
+    ->label('Дата визита') // Visit Date
+    ->sortable()
+    ->searchable(),
+
+Tables\Columns\TextColumn::make('labTestType.name')
+    ->label('Тип лабораторного теста') // Lab Test Type
+    ->sortable()
+    ->searchable(),
+
+Tables\Columns\TextColumn::make('created_at')
+    ->label('Дата создания') // Created At
+    ->dateTime()
+    ->sortable()
+    ->toggleable(isToggledHiddenByDefault: true),
+
+Tables\Columns\TextColumn::make('updated_at')
+    ->label('Дата изменения') // Updated At
+    ->dateTime()
+    ->sortable()
+    ->toggleable(isToggledHiddenByDefault: true),
+
+            ])
             ->filters([
                 //
             ])
