@@ -10,4 +10,10 @@ class TreatmentPlan extends Model
     {
         return $this->belongsTo(Patient::class);
     }
+
+    protected $fillable = [
+        'title',
+        'description',
+        'patient_id',
+    ];
 }

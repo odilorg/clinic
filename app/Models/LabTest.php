@@ -10,5 +10,12 @@ class LabTest extends Model
     {
         return $this->belongsTo(Patient::class);
     }
+
+    protected $fillable = [
+        'patient_id',
+        'test_name',
+        'results',
+        'test_date',
+    ];
 }
 

@@ -15,5 +15,7 @@ class Diagnosis extends Model
     {
         return $this->belongsTo(Doctor::class);
     }
+
+    protected $fillable = ['patient_id', 'doctor_id', 'details'];
 }
 

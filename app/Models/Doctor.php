@@ -16,12 +16,17 @@ class Doctor extends Model
         return $this->hasMany(Diagnosis::class);
     }
 
+    public function specialization()
+    {
+        return $this->belongsTo(Specialization::class);
+    }
+
     protected $fillable = [
         'name',
         'phone',
         'email',
         'address',
-        'specialization',
+        'specialization_id',
         'license_number',
         'user_id',
     ];

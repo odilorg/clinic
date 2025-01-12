@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('invoices', function (Blueprint $table) {
+        Schema::create('specializations', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->unique(); // Name of the specialization
             $table->timestamps();
         });
+        
     }
 
     /**
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('invoices');
+        Schema::dropIfExists('specializations');
     }
 };

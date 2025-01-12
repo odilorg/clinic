@@ -31,9 +31,13 @@ class Patient extends Model
         return $this->hasMany(Invoice::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'name',
         'dob',
         'user_id',
         'gender',
