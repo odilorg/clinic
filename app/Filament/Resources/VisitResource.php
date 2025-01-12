@@ -2,16 +2,22 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\VisitResource\Pages;
-use App\Filament\Resources\VisitResource\RelationManagers;
-use App\Models\Visit;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Visit;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\DatePicker;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\VisitResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\VisitResource\RelationManagers;
+use App\Filament\Resources\VisitResource\RelationManagers\PrescriptionsRelationManager;
 
 class VisitResource extends Resource
 {
@@ -97,7 +103,7 @@ Tables\Columns\TextColumn::make('updated_at')
     public static function getRelations(): array
     {
         return [
-            //
+            PrescriptionsRelationManager::class,
         ];
     }
 

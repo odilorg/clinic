@@ -45,6 +45,17 @@ public function visits()
     return $this->hasMany(Visit::class);
 }
 
+public function prescriptions()
+{
+    return $this->hasManyThrough(
+        \App\Models\Prescription::class,
+        \App\Models\Visit::class,
+        'patient_id',        // Foreign key on the visits table
+        'visit_id',          // Foreign key on the prescriptions table
+        'id',                // Local key on the patients table
+        'id'                 // Local key on the visits table
+    );
+}
 
     protected $fillable = [
         'name',

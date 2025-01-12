@@ -30,10 +30,10 @@ protected $fillable = [
     'diagnosis',
     'notes',
 ];
-// public function prescriptions()
-// {
-//     return $this->hasMany(Prescription::class);
-// }
+public function prescriptions()
+{
+    return $this->hasMany(Prescription::class);
+}
 
 // public function procedures()
 // {

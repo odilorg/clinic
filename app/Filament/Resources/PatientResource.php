@@ -13,6 +13,7 @@ use App\Filament\Resources\PatientResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PatientResource\RelationManagers;
 use App\Filament\Resources\PatientResource\RelationManagers\VisitsRelationManager;
+use App\Filament\Resources\PatientResource\RelationManagers\PrescriptionsRelationManager;
 use App\Filament\Resources\PatientResource\RelationManagers\MedicalHistoriesRelationManager;
 
 class PatientResource extends Resource
@@ -127,6 +128,7 @@ class PatientResource extends Resource
         return [
             MedicalHistoriesRelationManager::class,
             VisitsRelationManager::class,
+            PrescriptionsRelationManager::class,
         ];
     }
 

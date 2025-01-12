@@ -62,7 +62,10 @@ class MedicalHistoriesRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('name')
             ->columns([
-               
+                Tables\Columns\TextColumn::make('date')
+                ->label('Дата') // Date
+                ->date()
+                ->sortable(),
             
             Tables\Columns\TextColumn::make('type')
                 ->label('Тип') // Type
@@ -79,10 +82,7 @@ class MedicalHistoriesRelationManager extends RelationManager
                 ->label('Название болезни/операции/аллергии') // Illness/Surgery/Allergy Name
                 ->searchable(),
             
-            Tables\Columns\TextColumn::make('date')
-                ->label('Дата') // Date
-                ->date()
-                ->sortable(),
+          
             
             Tables\Columns\TextColumn::make('doctor_name')
                 ->label('Имя доктора') // Doctor Name
