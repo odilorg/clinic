@@ -21,10 +21,10 @@ class Patient extends Model
         return $this->hasMany(Diagnosis::class);
     }
 
-    public function labTests()
-    {
-        return $this->hasMany(LabTest::class);
-    }
+    // public function labTests()
+    // {
+    //     return $this->hasMany(LabTest::class);
+    // }
 
     public function invoices()
     {
@@ -56,6 +56,19 @@ public function prescriptions()
         'id'                 // Local key on the visits table
     );
 }
+
+public function labTests()
+{
+    return $this->hasManyThrough(
+        LabTest::class, // Final model
+        Visit::class,   // Intermediate model
+        'patient_id',   // Foreign key on visits table
+        'visit_id',     // Foreign key on lab_tests table
+        'id',           // Local key on patients table
+        'id'            // Local key on visits table
+    );
+}
+
 
     protected $fillable = [
         'name',
